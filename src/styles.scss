@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use 'toolbar-theme' as toolbar;
+@include mat.core();
+
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+  )
+));
+
+
+html {
+  @include toolbar.theme($dark-theme)
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-toolbar {
+  //Override the colors to create a dark sidenav.
+  @include mat.all-component-colors($dark-theme);
+}
+
+
+tes {
+  color: #383838
+}
