@@ -36,7 +36,7 @@ import {MatIcon} from "@angular/material/icon";
       align-items: center;
       flex-direction: column;
       min-height: 350px;
-
+      height: 100%;
     }
 
     .image-container {

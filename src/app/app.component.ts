@@ -1,4 +1,10 @@
-import {Component} from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import {Component, inject, signal} from '@angular/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { QrHandlerService } from '@qr/qr-handler.service';
+import { QR_TYPE } from '@qr/qr-model';
 import {QrComponent} from "@qr/qr.component";
 import {ToolbarComponent} from "@shared/toolbar.component";
 
@@ -7,29 +13,22 @@ import {ToolbarComponent} from "@shared/toolbar.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ToolbarComponent, QrComponent],
-  template: `
-    <header>
-      <app-toolbar />
-    </header>
-
-    <main class="container">
-      <h2>QR Code Generator </h2>
-      <app-qr />
-    </main>
-  `,
-  styles: `
-    .container {
-      margin: 0 auto;
-      max-width: 1350px;
-
-      h2 {
-        margin: 2rem 0;
-        text-align: center;
-      }
-    }
-  `
+  imports: [QrComponent, MatButtonToggleModule, MatIcon, MatMenuTrigger, MatMenu, NgComponentOutlet],
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  title = 'yg-qrcode';
+  readonly qrHandlerService = inject(QrHandlerService);
+  readonly qrTypes = this.qrHandlerService.getQrTypes()
+
+  componentToRender = signal<QR_TYPE | null> (
+    this.qrTypes() ? this.qrTypes()[0].component : null);
+
+
+ selectQr(qrType: string) {
+   const qrResult = this.qrTypes().find( qrTypes => qrTypes.value === qrType);
+   if (qrResult) {
+    this.componentToRender.update( () => qrResult.component);
+   }
+ }
 }

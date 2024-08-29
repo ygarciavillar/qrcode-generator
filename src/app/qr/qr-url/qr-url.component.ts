@@ -10,38 +10,17 @@ import {MatButton} from "@angular/material/button";
 import {QrHandlerService} from "@qr/qr-handler.service";
 
 
-export const matComponents = [MatFormField, MatIcon, MatInput, MatHint, MatLabel, MatError, MatButton];
+export const matComponents = [MatFormField, MatIcon, MatInput, MatLabel, MatError, MatButton];
 
 @Component({
   selector: 'qr-url',
   standalone: true,
   imports: [ReactiveFormsModule, JsonPipe, ...matComponents],
-  template: `
-    <p>
-      <mat-form-field appearance="outline">
-        <mat-label>Your website URL</mat-label>
-        <input matInput
-               placeholder="https://"
-               type="url"
-               [formControl]="url">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>the qr code generated will open this url</mat-hint>
-
-        @if (url.invalid) {
-          <mat-error> {{errorMessage()}}    </mat-error>
-        }
-      </mat-form-field>
-    </p>
-
-    <button mat-raised-button (click)="generate()" [disabled]="url.invalid">
-      Generate QR Code
-    </button>
-
-  `,
+  templateUrl: 'qr-url.component.html',
   styles: `
     mat-form-field {
       width: 100%;
-      padding-bottom: 2rem;
+      padding: 1rem 0;
     }
   `
 })

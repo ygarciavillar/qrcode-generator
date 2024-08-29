@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {QrCreateComponent} from "@qr/qr-create/qr-create.component";
 import {QrRenderComponent} from "@qr/qr-render/qr-render.component";
 import {QrEditComponent} from "@qr/qr-edit/qr-edit.component";
 import {MatCard, MatCardContent} from "@angular/material/card";
@@ -11,19 +10,19 @@ export const MAT_COMPONENTS = [MatCard, MatCardContent, MatButtonModule,MatIcon,
 @Component({
   selector: 'app-qr',
   standalone: true,
-  imports: [QrCreateComponent, QrRenderComponent, QrEditComponent, ...MAT_COMPONENTS, MatMenu],
+  imports: [QrRenderComponent, QrEditComponent, ...MAT_COMPONENTS, MatMenu],
   template: `
   <section>
     <div class="create">
       <mat-card appearance="outlined">
         <mat-card-content>
-          <app-qr-create />
+          <ng-content/>
         </mat-card-content>
       </mat-card>
+    </div>
 
-      <div class="qr-options">
+    <div class="qr-options">
         <app-qr-edit />
-      </div>
     </div>
 
     <div class="render">
@@ -37,25 +36,50 @@ export const MAT_COMPONENTS = [MatCard, MatCardContent, MatButtonModule,MatIcon,
 
   `,
   styles: `
-    section {
-      display: flex;
-      width: 100%;
-      gap: 2rem;
-      justify-content: space-between;
+  section {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      "qr-create"
+      "qr-render"
+      "qr-option";
+  }
+
+  .create{
+    grid-area: qr-create;
+  }
+
+  .qr-options {
+    grid-area: qr-option;
+  }
+
+  .render{
+    grid-area: qr-render;
+  }
+
+    mat-card{
+      height: 100%
     }
 
-    .create{
-      flex-basis: 60%;
+    mat-card-content{
+      height: 100%;
     }
 
-    .render {
-      flex-basis: 40%;
+    @media screen and (min-width: 600px){
+      section {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+          "qr-create qr-render"
+          "qr-option qr-render";
+      }
     }
 
 
-    .qr-options {
-      margin-top: 2rem;
-    }
+
 
   `
 })

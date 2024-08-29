@@ -39,7 +39,7 @@ export const MatComponents = [MatIcon, MatInput, MatLabel, MatAccordion, MatExpa
               <input matInput type="color" formControlName="dotColor"/>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Margin</mat-label>
               <input matInput type="number" min="1" formControlName="margin"/>
             </mat-form-field>

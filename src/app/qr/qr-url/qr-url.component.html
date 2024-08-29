@@ -1,0 +1,25 @@
+<div class="create-header">
+  <p class="main_text">Transform Your Link into a QR Code</p>
+  <span class="secondary_text">Enter your website or page link</span>
+</div>
+<div>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Website URL</mat-label>
+      <input matInput
+             placeholder="https://"
+             type="url"
+             [formControl]="url">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+      @if (url.invalid) {
+        <mat-error> {{errorMessage()}}    </mat-error>
+      }
+    </mat-form-field>
+  </p>
+
+  <button mat-raised-button (click)="generate()" [disabled]="url.invalid">
+    Generate QR Code
+  </button>
+</div>
+

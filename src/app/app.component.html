@@ -1,3 +1,36 @@
+<main class="container">
+  <h2>QR Code Generator</h2>
+  <div class="types_selectors">
+    <mat-button-toggle-group name="qrTypes" aria-label="Font Style" [hideSingleSelectionIndicator]="true">
+    @for (type of qrTypes(); track type.key; let first = $first) {
+      <mat-button-toggle  [value]="type.value" [checked]="first" (change)="selectQr($event.value)" >
+        <mat-icon [fontIcon]="type.icon"></mat-icon>&nbsp;{{ type.label }}&nbsp;
+      </mat-button-toggle>
+    }
 
+    <mat-button-toggle  value="other" [matMenuTriggerFor]="menu">
+      <mat-icon fontIcon="more_vert"></mat-icon>&nbsp;Others&nbsp;
+    </mat-button-toggle>
 
+    </mat-button-toggle-group>
+  </div>
 
+  <app-qr>
+    <ng-container *ngComponentOutlet="componentToRender();"></ng-container>
+  </app-qr>
+</main>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item value="test" (click)="selectQr('test')">
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+</mat-menu>

@@ -24,6 +24,20 @@ mat-toolbar {
 }
 
 
-tes {
-  color: #383838
+.create-header{
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+
+  .main_text {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .secondary_text{
+    font-weight: 400;
+    font-size: .8rem;
+    color: rgba($color: #000000, $alpha: 0.5);
+    line-height: .5;
+  }
 }

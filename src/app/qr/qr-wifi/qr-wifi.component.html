@@ -1,0 +1,49 @@
+<div class="create-header">
+  <p class="main_text">Make Your WiFi Accessible with a QR Code</p>
+  <span class="secondary_text">Add the network name (SSID), encryption type and password of your wireless network</span>
+</div>
+
+<form [formGroup]="wifiForm" (ngSubmit)="generateQR()">
+
+  <div class="form_container">
+    <div class="form_control">
+      <mat-form-field appearance="outline">
+        <mat-label>Network Name</mat-label>
+        <input formControlName="ssid" matInput placeholder="Network name (SSID)" />
+
+        @if (errorMessage()) {
+          <mat-error> {{errorMessage()}}    </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="form_control">
+      <mat-checkbox formControlName="hidden">Hidden</mat-checkbox>
+    </div>
+
+    <div class="form_control">
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input formControlName="password" matInput placeholder="Password of your wireless network" />
+      </mat-form-field>
+    </div>
+
+    <div class="form_control">
+      <label>Encryption:</label>
+      <mat-radio-group formControlName="encryption">
+       <mat-radio-button  value="">None</mat-radio-button>
+        <mat-radio-button value="WPA">WPA/WPA2</mat-radio-button>
+       <mat-radio-button value="WEP">WEP</mat-radio-button>
+     </mat-radio-group>
+    </div>
+  </div>
+
+
+  <button mat-raised-button type="submit">
+    Generate QR Code
+  </button>
+
+</form>
+
+
+
